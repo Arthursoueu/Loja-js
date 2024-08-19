@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compra</title>
+    <style>
+        .produto-details {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .produto-details img {
+            max-width: 200px;
+            margin-right: 20px;
+            border-radius: 5px;
+        }
+        .produto-details div {
+            margin-right: 15px;
+        }
+        .btn-finalizar {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Detalhes da Compra</h1>
+    <div class="produto-details" id="produto-details"></div>
+    <button class="btn-finalizar" onclick="finalizarCompra()">Finalizar Compra</button>
+
+    <script>
+        // Função para exibir detalhes do produto
+        function displayProduto() {
+            const params = new URLSearchParams(window.location.search);
+            const index = params.get('index');
+
+            if (index !== null) {
+                let produtos = JSON.parse(localStorage.getItem('produtos')) || [];
+                const produto = produtos[index];
+
+                if (produto) {
+                    const detalhesDiv = document.getElementById('produto-details');
+                    
+                    const img = document.createElement('img');
+                    img.src = produto.foto;
+                    img.alt = produto.nome;
+                    detalhesDiv.appendChild(img);
+                    
+                    const nome = document.createElement('div');
+                    nome.textContent = `Nome: ${produto.nome}`;
+                    detalhesDiv.appendChild(nome);
+                    
+                    const preco = document.createElement('div');
+                    preco.textContent = `Preço: R$ ${parseFloat(produto.preco).toFixed(2)}`;
+                    detalhesDiv.appendChild(preco);
+                } else {
+                    document.body.innerHTML = '<h1>Produto não encontrado</h1>';
+                }
+            } else {
+                document.body.innerHTML = '<h1>Produto não selecionado</h1>';
+            }
+        }
+
+        function finalizarCompra() {
+            alert("Compra finalizada com sucesso!");
+            // Aqui você pode adicionar a lógica para processar a compra
+        }
+
+        // Exibe os detalhes do produto ao carregar a página
+        displayProduto();
+    </script>
+</body>
+</html>

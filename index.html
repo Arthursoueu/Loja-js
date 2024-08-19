@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Produtos</title>
+    <style>
+        .produto-lista {
+            margin-top: 20px;
+        }
+        .produto-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .produto-item img {
+            max-width: 100px;
+            margin-right: 10px;
+            border-radius: 5px;
+        }
+        .produto-item div {
+            margin-right: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cadastro de Produtos</h1>
+    <form id="produto-form">
+        <label for="foto-produto">Foto do Produto:</label>
+        <input type="file" id="foto-produto" accept="image/*" required><br><br>
+        
+        <label for="nome-produto">Nome do Produto:</label>
+        <input type="text" id="nome-produto" required><br><br>
+        
+        <label for="preco-produto">Preço do Produto:</label>
+        <input type="number" id="preco-produto" step="0.01" required><br><br>
+        
+        <button type="submit">Adicionar Produto</button>
+    </form>
+
+    <div class="produto-lista" id="produto-lista"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

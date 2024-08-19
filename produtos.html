@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Produtos</title>
+    <style>
+        .produto-lista {
+            margin-top: 20px;
+        }
+        .produto-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .produto-item img {
+            max-width: 100px;
+            margin-right: 10px;
+            border-radius: 5px;
+        }
+        .produto-item div {
+            margin-right: 15px;
+        }
+        .btn-comprar {
+            margin-left: auto;
+            padding: 5px 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lista de Produtos</h1>
+    <div class="produto-lista" id="produto-lista"></div>
+
+    <script>
+        // Função para exibir produtos
+        function displayProdutos() {
+            const listaProdutos = document.getElementById('produto-lista');
+            listaProdutos.innerHTML = '';
+
+            let produtos = JSON.parse(localStorage.getItem('produtos')) || [];
+
+            produtos.forEach(function(produto, index) {
+                const produtoItem = document.createElement('div');
+                produtoItem.classList.add('produto-item');
+                
+                const img = document.createElement('img');
+                img.src = produto.foto;
+                img.alt = produto.nome;
+                produtoItem.appendChild(img);
+                
+                const nome = document.createElement('div');
+                nome.textContent = `Nome: ${produto.nome}`;
+                produtoItem.appendChild(nome);
+                
+                const preco = document.createElement('div');
+                preco.textContent = `Preço: R$ ${parseFloat(produto.preco).toFixed(2)}`;
+                produtoItem.appendChild(preco);
+                
+                // Botão de compra
+                const btnComprar = document.createElement('button');
+                btnComprar.textContent = 'Comprar';
+                btnComprar.classList.add('btn-comprar');
+                btnComprar.addEventListener('click', function() {
+                    window.location.href = `compra.html?index=${index}`;
+                });
+                produtoItem.appendChild(btnComprar);
+                
+                listaProdutos.appendChild(produtoItem);
+            });
+        }
+
+        // Exibe produtos ao carregar a página
+        displayProdutos();
+    </script>
+</body>
+</html>
